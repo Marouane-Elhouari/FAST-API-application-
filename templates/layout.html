@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GNN Prediction API — prédiction, historique, visualisation 2D/3D">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+
+    <meta name="theme-color" content="#DA560A">
+    <title>GNN Prediction API</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-ember fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6">
+                        <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" />
+                        <ellipse cx="12" cy="12" rx="9" ry="3.6" />
+                        <ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)" />
+                        <ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)" />
+                    </svg>
+                    GNN Prediction API
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav me-auto nav-sections">
+                        <button class="nav-link btn btn-link active" data-target="prediction">Prédiction</button>
+                        <button class="nav-link btn btn-link" data-target="history">Historique</button>
+                        <button class="nav-link btn btn-link" data-target="voxel3d">Voxel 3D</button>
+                        <button class="nav-link btn btn-link" data-target="rdkit-image">Image RDKit</button>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="bd-theme"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span id="bd-theme-text">🌗 Auto</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="light">🌝
+                                    Clair</button></li>
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="dark">🌚
+                                    Sombre</button></li>
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="auto">🌗
+                                    Auto</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow-1">
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer class="text-center py-3 small text-muted">
+        &copy; <span id="year"></span> GNN Prediction API
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        window.API_KEY = {{ api_key | tojson }};
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Dark / light / auto theme, same pattern as before.
+        const setTheme = (theme) => {
+            if (theme === 'auto') {
+                document.documentElement.setAttribute('data-bs-theme',
+                    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            } else {
+                document.documentElement.setAttribute('data-bs-theme', theme);
+            }
+            localStorage.setItem('theme', theme);
+            const themeText = { light: '🌝 Clair', dark: '🌚 Sombre', auto: '🌗 Auto' };
+            document.getElementById('bd-theme-text').textContent = themeText[theme];
+        };
+        document.querySelectorAll('[data-bs-theme-value]').forEach((button) => {
+            button.addEventListener('click', () => setTheme(button.getAttribute('data-bs-theme-value')));
+        });
+        setTheme(localStorage.getItem('theme') || 'auto');
+
+        // Section switcher: shows one .section-panel at a time, driven by
+        // the nav buttons above (data-target must match a section id).
+        const navButtons = document.querySelectorAll('.nav-sections .nav-link');
+        const sections = document.querySelectorAll('.section-panel');
+        function showSection(id) {
+            sections.forEach((s) => s.classList.toggle('d-none', s.id !== id));
+            navButtons.forEach((b) => b.classList.toggle('active', b.dataset.target === id));
+        }
+        navButtons.forEach((btn) => btn.addEventListener('click', () => showSection(btn.dataset.target)));
+        showSection('prediction');
+    </script>
+    {% block scripts %}{% endblock scripts %}
+</body>
+
+</html>

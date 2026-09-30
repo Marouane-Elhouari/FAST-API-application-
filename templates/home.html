@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container page-content">
+
+    <section id="prediction" class="section-panel prediction">
+        <h1>Prédiction de propriété</h1>
+        <p class="text-muted">Entrez une chaîne SMILES pour obtenir une prédiction du modèle AttentiveFP.</p>
+
+        <form id="predict-form" class="card p-4">
+            <label for="predict-smiles" class="form-label">SMILES</label>
+            <div class="d-flex gap-2">
+                <input id="predict-smiles" class="form-control font-mono" value="CCO" placeholder="ex: CCO">
+                <button type="submit" class="btn btn-ember">Prédire</button>
+            </div>
+        </form>
+
+        <div id="predict-error" class="alert alert-danger mt-3 d-none"></div>
+        <div id="predict-result" class="result-card mt-3 d-none">
+            <p class="eyebrow">Résultat</p>
+            <p class="font-mono text-muted mb-1" id="predict-result-smiles"></p>
+            <p class="result-value" id="predict-result-value"></p>
+            <p class="text-muted small" id="predict-result-version"></p>
+        </div>
+    </section>
+
+    <section id="history" class="section-panel history d-none">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+                <h1>Historique des prédictions</h1>
+                <p class="text-muted mb-0" id="history-count"></p>
+            </div>
+            <div class="d-flex gap-2">
+                <button id="history-refresh" class="btn btn-outline-ember btn-sm">Rafraîchir</button>
+                <button id="history-export-csv" class="btn btn-outline-ember btn-sm">Export CSV</button>
+                <button id="history-export-xlsx" class="btn btn-ember btn-sm">Export XLSX</button>
+            </div>
+        </div>
+
+        <div id="history-error" class="alert alert-danger mt-3 d-none"></div>
+
+        <div class="card mt-3 p-0 overflow-hidden">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Horodatage</th>
+                        <th>SMILES</th>
+                        <th>Prédiction</th>
+                    </tr>
+                </thead>
+                <tbody id="history-body">
+                    <tr>
+                        <td colspan="3" class="text-center text-muted py-4">Chargement…</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="voxel3d" class="section-panel voxel3d d-none">
+        <h1>Visualisation 3D</h1>
+        <p class="text-muted">Génère le graphe 3D interactif (Plotly) de la molécule.</p>
+
+        <form id="voxel3d-form" class="card p-4">
+            <label for="voxel3d-smiles" class="form-label">SMILES</label>
+            <div class="d-flex gap-2">
+                <input id="voxel3d-smiles" class="form-control font-mono" value="CC(=O)Oc1ccccc1C(=O)O"
+                    placeholder="ex: CC(=O)Oc1ccccc1C(=O)O">
+                <button type="submit" class="btn btn-ember">Générer</button>
+            </div>
+        </form>
+
+        <div id="voxel3d-error" class="alert alert-danger mt-3 d-none"></div>
+        <div id="voxel3d-frame-wrap" class="card mt-3 p-0 d-none">
+            <iframe id="voxel3d-frame" title="Visualisation 3D"></iframe>
+        </div>
+    </section>
+
+    <section id="rdkit-image" class="section-panel rdkit-image d-none">
+        <h1>Image 2D (RDKit)</h1>
+        <p class="text-muted">Génère la représentation 2D de la molécule à partir de son SMILES.</p>
+
+        <form id="rdkit-form" class="card p-4">
+            <label for="rdkit-smiles" class="form-label">SMILES</label>
+            <div class="d-flex gap-2">
+                <input id="rdkit-smiles" class="form-control font-mono" value="c1ccccc1" placeholder="ex: c1ccccc1">
+                <button type="submit" class="btn btn-ember">Générer</button>
+            </div>
+        </form>
+
+        <div id="rdkit-error" class="alert alert-danger mt-3 d-none"></div>
+        <div id="rdkit-image-wrap" class="card mt-3 text-center p-4 d-none">
+            <img id="rdkit-img" alt="Structure 2D">
+        </div>
+    </section>
+
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='js/main.js') }}"></script>
+{% endblock scripts %}

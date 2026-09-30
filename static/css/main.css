@@ -1,0 +1,113 @@
+:root {
+  --ember: #DA560A;
+  --ember-dark: #B3430A;
+  --ember-light: #FFF4EA;
+  --ember-border: #FBD9BB;
+  --ink: #241C16;
+}
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: #FFFFFF;
+  color: var(--ink);
+}
+
+[data-bs-theme="dark"] body {
+  background: #1B1512;
+  color: #F3ECE6;
+}
+
+.bg-ember {
+  background-color: var(--ember) !important;
+}
+
+.page-content {
+  max-width: 760px;
+  margin-top: 96px;
+  margin-bottom: 60px;
+}
+
+.nav-sections .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  border: none;
+  background: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.6rem;
+}
+
+.nav-sections .nav-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.nav-sections .nav-link.active {
+  background: #FFFFFF;
+  color: var(--ember-dark);
+  font-weight: 600;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.9rem;
+}
+
+.card {
+  border: 1px solid var(--ember-border);
+  border-radius: 1rem;
+}
+
+.btn-ember {
+  background-color: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.btn-ember:hover {
+  background-color: var(--ember-dark);
+  border-color: var(--ember-dark);
+  color: #fff;
+}
+
+.btn-outline-ember {
+  border-color: var(--ember);
+  color: var(--ember-dark);
+}
+
+.btn-outline-ember:hover {
+  background-color: var(--ember-light);
+  color: var(--ember-dark);
+}
+
+.eyebrow {
+  text-transform: none;
+  font-size: 0.8rem;
+  color: var(--ember-dark);
+  margin-bottom: 0.3rem;
+}
+
+.result-card {
+  background: var(--ember-light);
+  border: 1px solid var(--ember-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.result-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--ember-dark);
+  margin: 0.2rem 0;
+}
+
+#voxel3d-frame {
+  width: 100%;
+  height: 520px;
+  border: none;
+}
+
+#rdkit-img {
+  max-height: 320px;
+}
+
+.table thead {
+  background: var(--ember-light);
+}
