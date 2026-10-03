@@ -2,9 +2,4 @@ __pycache__/
 *.py[cod]
 .env
 my_env/
-*.gif
-GNN_notebook.ipynb
-output.png
 TRAIN.ipnyb.txt
-folds_training*.pth
-Lipophilicity_final.csv
