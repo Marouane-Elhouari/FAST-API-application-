@@ -8,4 +8,4 @@ rdkit>=2023.9.1
 mordred>=1.2.0
 plotly>=5.20
 torch>=2.2
-torch_geometric>=2.5
+torch_geometric>=2.8.0

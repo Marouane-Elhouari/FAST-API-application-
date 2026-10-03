@@ -43,19 +43,19 @@
                         <button class="nav-link btn btn-link active" data-target="prediction">Prédiction</button>
                         <button class="nav-link btn btn-link" data-target="history">Historique</button>
                         <button class="nav-link btn btn-link" data-target="voxel3d">Voxel 3D</button>
-                        <button class="nav-link btn btn-link" data-target="rdkit-image">Image RDKit</button>
+                        <button class="nav-link btn btn-link" data-target="rdkit-image">Image by library RDKit</button>
                     </div>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" id="bd-theme"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="bd-theme-text">🌗 Auto</span>
+                            <span id="bd-theme-text"> Auto</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
-                            <li><button class="dropdown-item" type="button" data-bs-theme-value="light">🌝
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="light">
                                     Clair</button></li>
-                            <li><button class="dropdown-item" type="button" data-bs-theme-value="dark">🌚
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="dark">
                                     Sombre</button></li>
-                            <li><button class="dropdown-item" type="button" data-bs-theme-value="auto">🌗
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="auto">
                                     Auto</button></li>
                         </ul>
                     </div>
@@ -89,7 +89,7 @@
                 document.documentElement.setAttribute('data-bs-theme', theme);
             }
             localStorage.setItem('theme', theme);
-            const themeText = { light: '🌝 Clair', dark: '🌚 Sombre', auto: '🌗 Auto' };
+            const themeText = { light: ' Clair', dark: ' Sombre', auto: ' Auto' };
             document.getElementById('bd-theme-text').textContent = themeText[theme];
         };
         document.querySelectorAll('[data-bs-theme-value]').forEach((button) => {
