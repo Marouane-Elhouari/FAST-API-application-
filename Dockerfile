@@ -22,8 +22,9 @@ COPY . .
 # 5. Permission for 3D generated html
 RUN mkdir -p generated && chmod 777 generated
 
-# 6. Hugging Face port 7860
-EXPOSE 7860
+# 6. Default Port (Render automatically sets $PORT)
+ENV PORT=8000
+EXPOSE 8000
 
-# 7. Start FastAPI
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]
+# 7. Start FastAPI listening on $PORT
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
